@@ -10,16 +10,17 @@
   <Support>https://github.com/metronade/ffmpeg-easy-unraid/issues</Support>
   <Project>https://github.com/metronade/ffmpeg-easy-unraid</Project>
   <Overview>
-    FFmpeg-Easy-Unraid is a "Simple H265 and AV1 Batch Transcoder".&#13;
+    FFmpeg-Easy-Unraid is a "Set and Forget" Batch Transcoder designed for Unraid.&#13;
     &#13;
     [b]Features:[/b]&#13;
     * [b]Workflow:[/b] Monitors /import, converts, moves originals to /import/finished, outputs to /export.&#13;
     * [b]Structure:[/b] Recursively scans directories and preserves the exact folder structure (Great for TV Series).&#13;
     * [b]Codecs:[/b] H.265 (HEVC) and AV1. (Note: AV1 requires modern GPU hardware like RTX 40xx or Intel Arc).&#13;
     * [b]Hardware:[/b] CPU, Nvidia (NVENC), Intel (QuickSync/Arc).&#13;
-    * [b]Quality:[/b] CPU Encoding is recommended for best quality/size ratio. GPU is faster but slightly less efficient.&#13;
     * [b]Safety:[/b] Detects CPU pinning. Limits threads to 50% if no pinning is detected to prevent server freeze.&#13;
-    * [b]Stats:[/b] Detailed space savings (GB/MB) report.&#13;
+    &#13;
+    [span style='color: #E80000; font-weight: bold;']IMPORTANT FOR NVIDIA USERS:[/span]&#13;
+    To enable GPU support, you MUST enable "Advanced View" (top right) and add [b]--runtime=nvidia[/b] to the "Extra Parameters" field! You must also set the "Nvidia Visible Devices" variable (defaults to 'all').
   </Overview>
   <Category>MediaApp:Video Productivity:Tools</Category>
   <WebUI/>
@@ -28,7 +29,7 @@
   <ExtraParams>--cap-add=SYS_NICE</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <Date>1700000000</Date>
+  <Date>1704480000</Date>
   <DonateText/>
   <DonateLink/>
   <Description>Simple H265 and AV1 Batch Transcoder</Description>
@@ -89,6 +90,16 @@
       <Name>Custom FFmpeg Args</Name>
       <Mode/>
     </Variable>
+    <Variable>
+      <Value>all</Value>
+      <Name>Nvidia Visible Devices</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>all</Value>
+      <Name>Nvidia Driver Capabilities</Name>
+      <Mode/>
+    </Variable>
   </Environment>
   
   <Config Name="Input Path (Source)" Target="/import" Default="/mnt/user/import/" Mode="rw" Description="Path to source files. Originals move to /finished after success." Type="Path" Display="always" Required="true" Mask="false"/>
@@ -96,10 +107,15 @@
   
   <Config Name="Encoding Method" Target="ENCODE_METHOD" Default="cpu_h265" Mode="" Description="cpu_h265 (Best Quality), cpu_av1, nvidia_h265, nvidia_av1 (Requires RTX 40xx), intel_h265, intel_av1" Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="Preset" Target="ENCODE_PRESET" Default="default" Mode="" Description="'default' (recommended) or manual (slow, fast, p1-p7)." Type="Variable" Display="always" Required="false" Mask="false"/>
+  
   <Config Name="Quality (CRF - CPU/Intel)" Target="ENCODE_CRF" Default="" Mode="" Description="Lower = Better. Empty = Smart Default (18/24)." Type="Variable" Display="advanced" Required="false" Mask="false"/>
   <Config Name="Quality (CQ - Nvidia)" Target="ENCODE_CQ" Default="" Mode="" Description="Lower = Better. Empty = Smart Default (19/24)." Type="Variable" Display="advanced" Required="false" Mask="false"/>
   <Config Name="CPU Threads" Target="ENCODE_THREADS" Default="0" Mode="" Description="0 = Auto (Safety Mode: 50% if no pinning). Set number to force." Type="Variable" Display="advanced" Required="false" Mask="false"/>
   <Config Name="Custom FFmpeg Args" Target="FFMPEG_CUSTOM_ARGS" Default="" Mode="" Description="Override audio/sub args (Default: -c:a copy -c:s copy)." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  
+  <Config Name="Nvidia Visible Devices" Target="NVIDIA_VISIBLE_DEVICES" Default="all" Mode="" Description="Set your GPU UUID here (e.g. GPU-xxxx) or leave as 'all'. REQUIRED for Nvidia encoding." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="Nvidia Driver Capabilities" Target="NVIDIA_DRIVER_CAPABILITIES" Default="all" Mode="" Description="Keep this as 'all' or 'compute,video,utility'." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  
   <Config Name="Unraid User ID" Target="UNRAID_UID" Default="99" Mode="" Description="UID" Type="Variable" Display="advanced" Required="false" Mask="false"/>
   <Config Name="Unraid Group ID" Target="UNRAID_GID" Default="100" Mode="" Description="GID" Type="Variable" Display="advanced" Required="false" Mask="false"/>
 </Container>
