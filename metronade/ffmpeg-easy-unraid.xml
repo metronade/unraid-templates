@@ -13,14 +13,17 @@
     FFmpeg-Easy-Unraid is a "Set and Forget" Batch Transcoder designed for Unraid.&#13;
     &#13;
     [b]Features:[/b]&#13;
-    * [b]Workflow:[/b] Monitors /import, converts, moves originals to /import/finished, outputs to /export.&#13;
+    * [b]Run-Once Workflow:[/b] This container scans /import on startup, processes the queue, and stops. [b]To process new files, simply restart the container.[/b] It does not monitor continuously.&#13;
     * [b]Structure:[/b] Recursively scans directories and preserves the exact folder structure (Great for TV Series).&#13;
     * [b]Codecs:[/b] H.265 (HEVC) and AV1. (Note: AV1 requires modern GPU hardware like RTX 40xx or Intel Arc).&#13;
     * [b]Hardware:[/b] CPU, Nvidia (NVENC), Intel (QuickSync/Arc).&#13;
     * [b]Safety:[/b] Detects CPU pinning. Limits threads to 50% if no pinning is detected to prevent server freeze.&#13;
     &#13;
     [span style='color: #E80000; font-weight: bold;']IMPORTANT FOR NVIDIA USERS:[/span]&#13;
-    To enable GPU support, you MUST enable "Advanced View" (top right) and add [b]--runtime=nvidia[/b] to the "Extra Parameters" field! You must also set the "Nvidia Visible Devices" variable (defaults to 'all').
+    To enable GPU support, you MUST enable "Advanced View" (top right) and add [b]--runtime=nvidia[/b] to the "Extra Parameters" field! You must also set the "Nvidia Visible Devices" variable.&#13;
+    &#13;
+    [span style='color: #0078D7; font-weight: bold;']IMPORTANT FOR INTEL USERS:[/span]&#13;
+    To enable QuickSync/Arc support, you must pass the device [b]/dev/dri[/b] to the container (Add Device -> /dev/dri).
   </Overview>
   <Category>MediaApp:Video Productivity:Tools</Category>
   <WebUI/>
