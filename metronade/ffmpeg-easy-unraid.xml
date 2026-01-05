@@ -25,7 +25,7 @@
   <WebUI/>
   <TemplateURL/>
   <Icon>https://raw.githubusercontent.com/metronade/ffmpeg-easy-unraid/main/icon.png</Icon>
-  <ExtraParams/>
+  <ExtraParams>--cap-add=SYS_NICE</ExtraParams>
   <PostArgs/>
   <CPUset/>
   <Date>1700000000</Date>
