@@ -7,7 +7,7 @@
   <MyIP/>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
-  <Support>https://github.com/metronade/ffmpeg-easy-unraid/issues</Support>
+  <Support>https://forums.unraid.net/topic/XXXXX-support-metronade-ffmpeg-easy-unraid/</Support>
   <Project>https://github.com/metronade/ffmpeg-easy-unraid</Project>
   <Overview>
     FFmpeg-Easy-Unraid is a "Set and Forget" Batch Transcoder designed for Unraid.&#13;
@@ -27,7 +27,7 @@
   </Overview>
   <Category>MediaApp:Video Productivity:Tools</Category>
   <WebUI/>
-  <TemplateURL/>
+  <TemplateURL>https://raw.githubusercontent.com/metronade/unraid-templates/main/ffmpeg-easy-unraid.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/metronade/ffmpeg-easy-unraid/main/icon.png</Icon>
   <ExtraParams>--cap-add=SYS_NICE</ExtraParams>
   <PostArgs/>
