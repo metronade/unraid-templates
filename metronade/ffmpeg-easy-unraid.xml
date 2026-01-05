@@ -14,9 +14,11 @@
     &#13;
     [b]Features:[/b]&#13;
     * [b]Workflow:[/b] Monitors /import, converts, moves originals to /import/finished, outputs to /export.&#13;
-    * [b]Codecs:[/b] H.265 (HEVC) and AV1.&#13;
+    * [b]Structure:[/b] Recursively scans directories and preserves the exact folder structure (Great for TV Series).&#13;
+    * [b]Codecs:[/b] H.265 (HEVC) and AV1. (Note: AV1 requires modern GPU hardware like RTX 40xx or Intel Arc).&#13;
     * [b]Hardware:[/b] CPU, Nvidia (NVENC), Intel (QuickSync/Arc).&#13;
-    * [b]Safety:[/b] Detects CPU pinning. Limits threads if no pinning is detected.&#13;
+    * [b]Quality:[/b] CPU Encoding is recommended for best quality/size ratio. GPU is faster but slightly less efficient.&#13;
+    * [b]Safety:[/b] Detects CPU pinning. Limits threads to 50% if no pinning is detected to prevent server freeze.&#13;
     * [b]Stats:[/b] Detailed space savings (GB/MB) report.&#13;
   </Overview>
   <Category>MediaApp:Video Productivity:Tools</Category>
@@ -36,12 +38,12 @@
   </Networking>
   <Data>
     <Volume>
-      <HostDir>/mnt/user/Isos/Input/</HostDir>
+      <HostDir>/mnt/user/import/</HostDir>
       <ContainerDir>/import</ContainerDir>
       <Mode>rw</Mode>
     </Volume>
     <Volume>
-      <HostDir>/mnt/user/Isos/Output/</HostDir>
+      <HostDir>/mnt/user/export/</HostDir>
       <ContainerDir>/export</ContainerDir>
       <Mode>rw</Mode>
     </Volume>
@@ -89,13 +91,14 @@
     </Variable>
   </Environment>
   
-  <Config Name="Input Path (Source)" Target="/import" Default="/mnt/user/Isos/Input/" Mode="rw" Description="Path to source files. Originals move to /finished after success." Type="Path" Display="always" Required="true" Mask="false"/>
-  <Config Name="Output Path (Destination)" Target="/export" Default="/mnt/user/Isos/Output/" Mode="rw" Description="Destination for converted files." Type="Path" Display="always" Required="true" Mask="false"/>
-  <Config Name="Encoding Method" Target="ENCODE_METHOD" Default="cpu_h265" Mode="" Description="cpu_h265, cpu_av1, nvidia_h265, nvidia_av1, intel_h265, intel_av1" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="Input Path (Source)" Target="/import" Default="/mnt/user/import/" Mode="rw" Description="Path to source files. Originals move to /finished after success." Type="Path" Display="always" Required="true" Mask="false"/>
+  <Config Name="Output Path (Destination)" Target="/export" Default="/mnt/user/export/" Mode="rw" Description="Destination for converted files." Type="Path" Display="always" Required="true" Mask="false"/>
+  
+  <Config Name="Encoding Method" Target="ENCODE_METHOD" Default="cpu_h265" Mode="" Description="cpu_h265 (Best Quality), cpu_av1, nvidia_h265, nvidia_av1 (Requires RTX 40xx), intel_h265, intel_av1" Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="Preset" Target="ENCODE_PRESET" Default="default" Mode="" Description="'default' (recommended) or manual (slow, fast, p1-p7)." Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="Quality (CRF - CPU/Intel)" Target="ENCODE_CRF" Default="" Mode="" Description="Lower = Better. Empty = Smart Default (18/24)." Type="Variable" Display="advanced" Required="false" Mask="false"/>
   <Config Name="Quality (CQ - Nvidia)" Target="ENCODE_CQ" Default="" Mode="" Description="Lower = Better. Empty = Smart Default (19/24)." Type="Variable" Display="advanced" Required="false" Mask="false"/>
-  <Config Name="CPU Threads" Target="ENCODE_THREADS" Default="0" Mode="" Description="0 = Auto (Safety Mode). Set number to force." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="CPU Threads" Target="ENCODE_THREADS" Default="0" Mode="" Description="0 = Auto (Safety Mode: 50% if no pinning). Set number to force." Type="Variable" Display="advanced" Required="false" Mask="false"/>
   <Config Name="Custom FFmpeg Args" Target="FFMPEG_CUSTOM_ARGS" Default="" Mode="" Description="Override audio/sub args (Default: -c:a copy -c:s copy)." Type="Variable" Display="advanced" Required="false" Mask="false"/>
   <Config Name="Unraid User ID" Target="UNRAID_UID" Default="99" Mode="" Description="UID" Type="Variable" Display="advanced" Required="false" Mask="false"/>
   <Config Name="Unraid Group ID" Target="UNRAID_GID" Default="100" Mode="" Description="GID" Type="Variable" Display="advanced" Required="false" Mask="false"/>
