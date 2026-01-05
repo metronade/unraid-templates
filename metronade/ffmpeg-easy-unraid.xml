@@ -22,7 +22,7 @@
     [span style='color: #E80000; font-weight: bold;']IMPORTANT FOR NVIDIA USERS:[/span]&#13;
     To enable GPU support, you MUST enable "Advanced View" (top right) and add [b]--runtime=nvidia[/b] to the "Extra Parameters" field! You must also set the "Nvidia Visible Devices" variable.&#13;
     &#13;
-    [span style='color: #0078D7; font-weight: bold;']IMPORTANT FOR INTEL USERS:[/span]&#13;
+    [span style='color: #0078D7; font-weight: bold;']IMPORTANT FOR INTEL GPU USERS:[/span]&#13;
     To enable QuickSync/Arc support, you must pass the device [b]/dev/dri[/b] to the container (Add Device -> /dev/dri).
   </Overview>
   <Category>MediaApp:Video Productivity:Tools</Category>
