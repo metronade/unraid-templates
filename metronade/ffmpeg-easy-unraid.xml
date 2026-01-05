@@ -7,7 +7,7 @@
   <MyIP/>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
-  <Support>https://forums.unraid.net/topic/XXXXX-support-metronade-ffmpeg-easy-unraid/</Support>
+  <Support>https://forums.unraid.net/topic/196288-support-metronade-ffmpeg-easy-unraid//</Support>
   <Project>https://github.com/metronade/ffmpeg-easy-unraid</Project>
   <Overview>
     FFmpeg-Easy-Unraid is a "Set and Forget" Batch Transcoder designed for Unraid.&#13;
